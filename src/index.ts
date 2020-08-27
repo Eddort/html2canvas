@@ -47,7 +47,7 @@ const renderElement = async (element: HTMLElement, opts: Partial<Options>): Prom
     const {width, height, left, top} =
         isBodyElement(element) || isHTMLElement(element) ? parseDocumentSize(ownerDocument) : parseBounds(element);
 
-    const defaultResourceOptions = {
+    const defaultResourceOptions: ResourceOptions = {
         allowTaint: false,
         imageTimeout: 15000,
         proxy: undefined,

@@ -66,6 +66,7 @@ export interface ResourceOptions {
     useCORS: boolean;
     allowTaint: boolean;
     proxy?: string;
+    onimagesrc?: (arg0: string) => string;
 }
 
 export class Cache {
@@ -128,7 +129,12 @@ export class Cache {
             if (isInlineBase64Image(src) || useCORS) {
                 img.crossOrigin = 'anonymous';
             }
-            img.src = src;
+            if (this._options.onimagesrc) {
+                img.src = this._options.onimagesrc(src);
+            } else {
+                img.src = src;
+            }
+
             if (img.complete === true) {
                 // Inline XML images may fail to parse, throwing an Error later on
                 setTimeout(() => resolve(img), 500);
